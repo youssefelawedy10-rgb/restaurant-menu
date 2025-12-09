@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Menu</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #fafafa;
+        color: #333;
+      }
+
+      header {
+        text-align: center;
+        padding: 50px;
+        /* background: #ff8343;
+        color: #fff; */
+        background-image: url(WhatsApp\ Image\ 2025-12-04\ at\ 14.59.01_ead84b96.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      
+
+      /* Filter Buttons */
+      .filters {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .filters button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        background: #ff5e2c;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: 0.2s;
+      }
+
+      .filters button:hover {
+        background: #ff7a50;
+      }
+
+      .menu {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .item {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+      }
+
+      .item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .item h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #ff5e2c;
+      }
+
+      .item p {
+        margin: 8px 0;
+        opacity: 0.8;
+      }
+
+      .price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ff5e2c;
+      }
+
+      #themeBtn {
+        display: block;
+        margin: 25px auto;
+        padding: 12px 25px;
+        border: none;
+        color: white;
+        background: #ff5e2c;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      /* Dark Mode */
+      .dark {
+        background: #1f1f1f;
+        color: #fff;
+
+      }
+
+      
+
+      .dark .item {
+        background: #2a2a2a;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+      }
+
+      .dark .price,
+      .dark .item h2 {
+        color: #ff9f68;
+      }
+
+      .dark #themeBtn,
+      .dark .filters button {
+        background: #ff9f68;
+      }
+      .tt{
+        height: 200px;
+        width: 160px;
+        border-radius: 25px;
+      }
+    </style>
+  </head>
+  <body >
+    <header>
+      <h1>Delicious Bites</h1>
+      <p>Your Favorite Meals</p>
+      
+    </header>
+
+    <!-- FILTER BUTTONS -->
+    <div class="filters">
+      <button onclick="filterItems('all')">All</button>
+      <button onclick="filterItems('burger')">Burger</button>
+      <button onclick="filterItems('pizza')">Pizza</button>
+      <button onclick="filterItems('pasta')">Pasta</button>
+      <button onclick="filterItems('salad')">Salad</button>
+    </div>
+
+    <section class="menu">
+      <div class="item" data-category="burger">
+
+        <h2>Burger</h2>
+        <p>Cheesy beef burger with lettuce</p>
+        <span class="price">$8.99</span>
+      </div>
+
+      <div class="item" data-category="pizza">
+        <h2>Pizza</h2>
+        <p>Fresh mozzarella & pepperoni</p>
+        <span class="price">$12.50</span>
+      </div>
+       <div class="item" data-category="pizza">
+        <h2>Pizza</h2>
+        <p>Fresh mozzarella & pepperoni</p>
+        <span class="price">$12.50</span>
+      </div>
+
+      <div class="item" data-category="pizza">
+        <h2>Pizza</h2>
+        <p>Fresh mozzarella & pepperoni</p>
+        <span class="price">$12.50</span>
+      </div>
+
+      <div class="item" data-category="pasta">
+        <h2>Pasta</h2>
+        <p>Creamy Alfredo sauce</p>
+        <span class="price">$10.00</span>
+      </div>
+
+      <div class="item" data-category="salad">
+        <h2>Salad</h2>
+        <p>Fresh greens with dressing</p>
+        <span class="price">$6.50</span>
+      </div>
+
+      <div class="item" data-category="burger">
+        <h2>Double Burger</h2>
+        <p>Two beef patties with extra cheese</p>
+        <span class="price">$11.99</span>
+      </div>
+
+      <div class="item" data-category="pizza">
+        <h2>Veggie Pizza</h2>
+        <p>Loaded with vegetables and cheese</p>
+        <span class="price">$10.50</span>
+      </div>
+      <div class="item" data-category="burger">
+        <h2>Double Burger</h2>
+        <p>Two beef patties with extra cheese</p>
+        <span class="price">$11.99</span>
+      </div>
+      <div class="item" data-category="burger">
+        <h2>Double Burger</h2>
+        <p>Two beef patties with extra cheese</p>
+        <span class="price">$11.99</span>
+      </div>
+      <div id="item" data-category="burger">
+        <img class="tt" src="y.jpg" alt="">
+      </div>
+    </section>
+
+    <button id="themeBtn">Toggle Dark Mode</button>
+
+    <script>
+      // DARK MODE
+      document.getElementById("themeBtn").addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+      });
+
+      // FILTER FUNCTION
+      function filterItems(category) {
+        const items = document.querySelectorAll(".item");
+
+        function toggleimage(){
+          const img = document.getElementById("item")
+          img.style,display = (img.style.display === "none") ? "block" : "none"
+        }
+
+        items.forEach((item) => {
+          const itemCategory = item.getAttribute("data-category");
+
+          if (category === "all" || category === itemCategory) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
