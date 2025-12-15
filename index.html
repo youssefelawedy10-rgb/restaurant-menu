@@ -138,6 +138,17 @@
         background-image: url(WhatsApp\ Image\ 2025-12-04\ at\ 15.21.12_6129e569.jpg);
         
       }
+      #serch{
+        width: 280px;
+        max-width: 90%;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body >
@@ -149,12 +160,17 @@
 
     <!-- FILTER BUTTONS -->
     <div class="filters">
+      <input id="serch" type="text" placeholder="serch in menu">
+      <br>
       <button onclick="filterItems('all')">All</button>
       <button onclick="filterItems('burger')">Burger</button>
       <button onclick="filterItems('pizza')">Pizza</button>
       <button onclick="filterItems('pasta')">Pasta</button>
       <button onclick="filterItems('salad')">Salad</button>
+
     </div>
+
+    
 
 
 
@@ -191,12 +207,15 @@
 
 
 
-      <div id="pp" class="item" data-category="pizza">
+      <div id="pp" class="item" data-category="pizza" data-name="Fresh mozzarella & pepperoni" data-price="$12.50">
         <h2>Pizza</h2>
         <p style="color: white;">Fresh mozzarella & pepperoni</p>
         <span class="price">$12.50</span>
         <img style="width: 180px;" id="dd" src="download (2).jpg" alt="">
       </div>
+
+
+
        <div id="pp" class="item" data-category="pizza">
         <h2>Pizza</h2>
         <p style="color: white;">Chicken Ranch</p>
@@ -287,6 +306,20 @@
     </section>
 
     <button id="themeBtn">Toggle Dark Mode</button>
+    <button id="whatsappBtn" style="
+  display:block;
+  margin:20px auto;
+  padding:15px 25px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:18px;
+  cursor:pointer;
+">
+  Send Order on WhatsApp
+</button>
+
 
     <script>
       // DARK MODE
@@ -313,6 +346,38 @@
           }
         });
       }
+      let order = [];
+
+  // لما تدوس على أي كارد
+  document.querySelectorAll(".item").forEach(item => {
+    item.addEventListener("click", () => {
+      const name = item.getAttribute("data-name") || item.querySelector("h2").innerText;
+      const price = item.getAttribute("data-price") || item.querySelector(".price").innerText;
+
+      order.push({ name, price });
+
+      item.style.border = "3px solid #25D366"; // علامة إنه اتضاف
+    });
+  });
+
+  // زرار الواتساب
+  document.getElementById("whatsappBtn").addEventListener("click", () => {
+    if (order.length === 0) {
+      alert("Please select items first");
+      return;
+    }
+
+    let message = "🧾 Order Details:%0A%0A";
+
+    order.forEach((item, index) => {
+      message += `${index + 1}- ${item.name} - ${item.price}%0A`;
+    });
+
+    const phoneNumber = "01062841764"; // ← حط رقمك هنا
+    const url = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    window.open(url, "_blank");
+  });
     </script>
   </body>
 </html>
