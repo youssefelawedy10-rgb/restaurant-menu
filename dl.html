@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Delicious Bites Menu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --main:#ff5e2c;
+  --dark:#1f1f1f;
+  --light:#ffffff;
+}
+
+body{
+  margin:0;
+  font-family:"Poppins",sans-serif;
+  background:#f7f7f7;
+  color:#222;
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:60px 20px;
+  background:url(uu.jpg) center/cover no-repeat;
+  color:white;
+}
+header h1{
+  font-size:42px;
+  text-shadow:0 5px 20px rgba(0,0,0,.5);
+}
+header p{opacity:.9}
+
+/* FILTERS */
+.filters{
+  text-align:center;
+  padding:20px;
+}
+.filters input{
+  width:280px;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  font-size:15px;
+}
+.filters button{
+  margin:6px;
+  padding:10px 18px;
+  border:none;
+  border-radius:20px;
+  background:var(--main);
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+.filters button:hover{
+  background:#ff7a50;
+  transform:translateY(-2px);
+}
+
+/* MENU GRID */
+.menu{
+  max-width:1100px;
+  margin:auto;
+  padding:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+/* CARD */
+.item{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  transition:.3s;
+  cursor:pointer;
+}
+.item:hover{
+  transform:translateY(-6px);
+}
+.item.selected{
+  outline:3px solid #25D366;
+}
+
+.item img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.item .content{
+  padding:18px;
+}
+.item h2{
+  margin:0;
+  font-size:18px;
+  color:var(--main);
+}
+.item p{
+  font-size:14px;
+  opacity:.8;
+}
+.price{
+  font-weight:600;
+  margin-top:10px;
+  display:block;
+}
+
+/* DARK MODE */
+.dark{
+  background:#121212;
+  color:white;
+}
+.dark .item{background:#1f1f1f}
+.dark .filters button,
+.dark #themeBtn{background:#ff9f68}
+
+/* BUTTONS */
+#themeBtn{
+  display:block;
+  margin:30px auto;
+  padding:12px 30px;
+  border:none;
+  border-radius:25px;
+  background:var(--main);
+  color:white;
+  cursor:pointer;
+}
+
+/* WHATSAPP */
+#whatsappBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  border:none;
+  padding:16px 22px;
+  border-radius:50px;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Delicious Bites</h1>
+  <p>Your Favorite Meals</p>
+</header>
+
+<div class="filters">
+  <input id="search" placeholder="Search in menu">
+  <br>
+  <button onclick="filterItems('all')">All</button>
+  <button onclick="filterItems('burger')">Burger</button>
+  <button onclick="filterItems('pizza')">Pizza</button>
+  <button onclick="filterItems('pasta')">Pasta</button>
+  <button onclick="filterItems('salad')">Salad</button>
+</div>
+
+<section class="menu">
+
+  <div class="item" data-category="burger" data-name="Cheesy Burger" data-price="8.99">
+    <img src="download.jpg">
+    <div class="content">
+      <h2>Cheesy Burger</h2>
+      <p>Juicy beef burger with cheese</p>
+      <span class="price">$8.99</span>
+    </div>
+  </div>
+
+  <div class="item" data-category="pizza" data-name="Pepperoni Pizza" data-price="12.5">
+    <img src="download (2).jpg">
+    <div class="content">
+      <h2>Pepperoni Pizza</h2>
+      <p>Fresh mozzarella & pepperoni</p>
+      <span class="price">$12.50</span>
+    </div>
+  </div>
+
+</section>
+
+<button id="themeBtn">Toggle Dark Mode</button>
+<button id="whatsappBtn">Send Order</button>
+
+<script>
+document.getElementById("themeBtn").onclick=()=>{
+  document.body.classList.toggle("dark");
+};
+
+// FILTER
+function filterItems(cat){
+  document.querySelectorAll(".item").forEach(i=>{
+    i.style.display=(cat==="all"||i.dataset.category===cat)?"block":"none";
+  });
+}
+
+// SEARCH
+document.getElementById("search").addEventListener("input",e=>{
+  const val=e.target.value.toLowerCase();
+  document.querySelectorAll(".item").forEach(i=>{
+    i.style.display=i.innerText.toLowerCase().includes(val)?"block":"none";
+  });
+});
+
+// ORDER
+let order=[];
+document.querySelectorAll(".item").forEach(i=>{
+  i.onclick=()=>{
+    i.classList.toggle("selected");
+    const name=i.dataset.name;
+    const price=parseFloat(i.dataset.price);
+    order.push({name,price});
+  };
+});
+
+// WHATSAPP
+document.getElementById("whatsappBtn").onclick=()=>{
+  if(!order.length)return alert("Select items first");
+  let msg="Order:%0A";
+  let total=0;
+  order.forEach((i,n)=>{
+    msg+=`${n+1}- ${i.name} $${i.price}%0A`;
+    total+=i.price;
+  });
+  msg+=`Total: $${total}`;
+  window.open(`https://wa.me/201062841764?text=${msg}`);
+};
+</script>
+
+</body>
+</html>
