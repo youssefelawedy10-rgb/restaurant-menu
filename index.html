@@ -239,6 +239,97 @@ footer i {
   left: auto;   /* مهم */
 }
 
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+
+  /* الهيدر */
+  header {
+    padding: 25px 10px;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 28px;
+  }
+
+  header p {
+    font-size: 14px;
+  }
+
+  /* السيرش */
+  #serch {
+    width: 90%;
+    font-size: 15px;
+  }
+
+  /* الفلاتر */
+  .filters button {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  /* الملاحظات */
+  .side-note,
+  .right-note {
+    position: relative;   /* مهم جدًا */
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 90%;
+    margin: 10px auto;
+
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* المنيو */
+  .menu {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  /* الكارد */
+  .item {
+    padding: 15px;
+  }
+
+  .item h2 {
+    font-size: 18px;
+  }
+
+  .item p {
+    font-size: 14px;
+  }
+
+  /* الصور */
+  #dd {
+    width: 140px;
+    height: auto;
+    margin: 10px auto;
+    display: block;
+  }
+
+  /* زر واتساب */
+  #whatsappBtn {
+    width: 65px;
+    height: 65px;
+    font-size: 14px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  /* الفوتر */
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  footer div {
+    max-width: 100%;
+  }
+}
 
       
     </style>
